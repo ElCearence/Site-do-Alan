@@ -1,0 +1,165 @@
+:root {
+  --fonte-base: 16px;                    /* Tamanho base da fonte */
+  --contraste-bg: #000;                  /* Cor de fundo no modo alto contraste */
+  --contraste-fg: #fff;                  /* Cor do texto no modo alto contraste */
+  --fundo: #f9f9f9;                      /* Cor de fundo padrão da página */
+  --texto: #333;                         /* Cor do texto padrão */
+  --cor-primaria: #0055aa;               /* Cor usada no header e footer */
+  --cor-secundaria: #ffaa00;             /* Cor usada no menu de navegação */
+  --cor-destaque: #dd3333;               /* Cor usada para foco (acessibilidade) */
+}
+
+body {
+  font-size: var(--fonte-base);          /* Define o tamanho da fonte do corpo */
+  background-color: var(--fundo);        /* Define a cor de fundo padrão */
+  color: var(--texto);                   /* Define a cor do texto padrão */
+  font-family: Arial, sans-serif;        /* Define a fonte usada no corpo */
+  line-height: 1.6;                      /* Define o espaçamento entre linhas */
+  padding: 6rem;                         /* Adiciona espaço interno ao redor do conteúdo */
+  transition: all 0.3s ease;             /* Suaviza as transições visuais */
+}
+
+body.alto-contraste {
+  background-color: var(--contraste-bg); /* Altera o fundo para preto no modo alto contraste */
+  color: var(--contraste-fg);            /* Altera o texto para branco no modo alto contraste */
+}
+
+body.alto-contraste a,
+body.alto-contraste nav a {
+  color: var(--contraste-fg);            /* Altera os links para branco no alto contraste */
+}
+
+body.alto-contraste .card,
+body.alto-contraste header,
+body.alto-contraste nav,
+body.alto-contraste footer,
+body.alto-contraste .acessibilidade-bar {
+  background-color: var(--contraste-bg) !important;  /* Fundo preto em modo alto contraste */
+  color: var(--contraste-fg) !important;             /* Texto branco em modo alto contraste */
+  border-color: var(--contraste-fg) !important;      /* Borda branca em modo alto contraste */
+}
+
+body.alto-contraste input,
+body.alto-contraste textarea,
+body.alto-contraste select,
+body.alto-contraste button {
+  background-color: #111;               /* Fundo escuro para inputs no modo contraste */
+  color: white;                         /* Texto branco */
+  border: 1px solid white;              /* Borda branca */
+}
+
+.acessibilidade-bar {
+  position: fixed;                      /* Fixa a barra no topo da página */
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #ddd;                     /* Cor de fundo cinza claro */
+  padding: 0.5rem;                      /* Espaço interno da barra */
+  display: flex;                        /* Exibe os elementos em linha */
+  justify-content: space-between;      /* Espaça os itens igualmente entre as extremidades */
+  flex-wrap: wrap;                      /* Permite quebra de linha quando não couber */
+  z-index: 999;                         /* Garante que fique acima de outros elementos */
+}
+
+.acessibilidade-bar button,
+.acessibilidade-bar select {
+  font-size: 1rem;                      /* Tamanho da fonte dos botões e selects */
+  margin: 0.25rem;                      /* Espaçamento entre os elementos */
+  padding: 0.5rem;                      /* Espaço interno dos botões/selects */
+  cursor: pointer;                      /* Mostra cursor de mão ao passar o mouse */
+  border-radius: 5px;                  /* Arredonda os cantos */
+}
+
+main {
+  margin-top: 5rem;                     /* Adiciona espaço acima do conteúdo principal */
+}
+
+header,
+footer {
+  background-color: var(--cor-primaria); /* Fundo azul escuro */
+  color: white;                           /* Texto branco */
+  padding: 1rem;                          /* Espaçamento interno */
+  text-align: center;                     /* Centraliza o conteúdo */
+}
+
+nav {
+  background-color: var(--cor-secundaria); /* Fundo amarelo-alaranjado */
+  padding: 1rem;                            /* Espaço interno */
+  display: flex;                            /* Exibe os links em linha */
+  justify-content: center;                 /* Centraliza os links */
+  gap: 1rem;                                /* Espaço entre os links */
+  flex-wrap: wrap;                          /* Permite quebrem de linha se necessário */
+}
+
+nav a {
+  color: #000;                             /* Cor dos links: preto */
+  text-decoration: none;                  /* Remove o sublinhado */
+  font-weight: bold;                      /* Deixa os links em negrito */
+}
+
+section {
+  margin-bottom: 2rem;                    /* Espaço entre seções */
+}
+
+.tooltip {
+  border-bottom: 1px dotted #555;         /* Indica visualmente com sublinhado pontilhado */
+  cursor: help;                           /* Cursor de ajuda (ícone de interrogação) */
+}
+
+.card {
+  border: 1px solid #ccc;                 /* Borda cinza clara */
+  border-radius: 8px;                     /* Arredonda os cantos */
+  padding: 1rem;                          /* Espaço interno */
+  margin: 1rem 0;                         /* Espaço vertical */
+  background-color: white;               /* Fundo branco */
+}
+
+.btn-reset {
+  background-color: #eee;                 /* Cor de fundo cinza claro */
+  border: 1px solid #000000;                 /* Borda cinza médio */
+}
+
+.oculto {
+  display: none;                          /* Oculta elementos com essa classe */
+}
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--cor-destaque);  /* Contorno vermelho para acessibilidade por teclado */
+  outline-offset: 0px;                     /* Espaço entre o foco e o elemento */
+}
+
+.logoff-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #0055aa;;
+  color: white;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000; /* acima da barra de acessibilidade */
+}
+
+.logoff-bar button {
+  background-color: #dd3333;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logoff-bar button:hover {
+  background-color: #bb0000;
+}
+
+/* Ajusta a posição da acessibilidade-bar para não sobrepor */
+.acessibilidade-bar {
+  top: 3rem; /* ajustado para descer abaixo da logoff-bar */
+}
