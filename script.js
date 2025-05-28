@@ -96,6 +96,8 @@ async function fazerLogoff() {
         // Substitua 'menu.html' pela URL de destino desejada
         window.location.href = "menu.html"; 
       }
+
+      // pinto
     } catch (error) {
       console.error('Erro ao tentar fazer a requisição POST de logoff:', error);
       // Decide o que fazer em caso de erro de rede/fetch.
