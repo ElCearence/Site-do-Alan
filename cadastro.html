@@ -77,7 +77,7 @@
       align-items: center;
       min-height: 100vh;
       background-color: var(--cor-primaria);
-      padding-top: 5rem;
+      padding-top: 5rem; /* Espaço para a barra de acessibilidade */
       transition: all 0.3s ease;
     }
 
@@ -176,24 +176,24 @@
   <main>
     <div class="register-container">
       <h2>Crie sua conta</h2>
-      <form>
-        <input type="text" placeholder="Nome completo" required />
-        <input type="email" placeholder="E-mail" required />
-        <input type="text" placeholder="Nome de usuário" required />
-        <input type="password" placeholder="Senha" required />
-        <input type="password" placeholder="Confirmar senha" required />
+      <form id="register-form">
+        <input type="text" id="register-name" placeholder="Nome completo" required />
+        <input type="email" id="register-email" placeholder="E-mail" required />
+        <!--<input type="text" id="register-username" placeholder="Nome de usuário" required /-->
+        <input type="password" id="register-password" placeholder="Senha" required />
+        <input type="password" id="register-confirm-password" placeholder="Confirmar senha" required />
         <button type="submit" class="register-button">Cadastrar</button>
       </form>
+      <p id="register-message" style="margin-top: 1rem;"></p>
       <div class="footer">
-        <p><a href="#">Já tem conta? Faça login</a></p>
+        <p><a href="#" onclick="navigateTo('login.html')">Já tem conta? Faça login</a></p>
       </div>
     </div>
   </main>
 
   <div id="libras-container" class="oculto">
-    <iframe src="https://www.vlibras.gov.br/app" width="100%" height="400" title="VLibras Plugin"></iframe>
-  </div>
+    </div>
 
-  <script src="script.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>
