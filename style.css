@@ -131,35 +131,3 @@ select:focus {
   outline: 2px solid var(--cor-destaque);  /* Contorno vermelho para acessibilidade por teclado */
   outline-offset: 0px;                     /* Espaço entre o foco e o elemento */
 }
-
-.logoff-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #0055aa;;
-  color: white;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: flex-end;
-  z-index: 1000; /* acima da barra de acessibilidade */
-}
-
-.logoff-bar button {
-  background-color: #dd3333;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.logoff-bar button:hover {
-  background-color: #bb0000;
-}
-
-/* Ajusta a posição da acessibilidade-bar para não sobrepor */
-.acessibilidade-bar {
-  top: 3rem; /* ajustado para descer abaixo da logoff-bar */
-}

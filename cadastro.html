@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro</title>
+  <style>
+    :root {
+      --fonte-base: 16px;
+      --contraste-bg: #000;
+      --contraste-fg: #fff;
+      --fundo: #f9f9f9;
+      --texto: #333;
+      --cor-primaria: #0055aa;
+      --cor-secundaria: #ffaa00;
+      --cor-destaque: #dd3333;
+    }
+
+    body {
+      font-size: var(--fonte-base);
+      background-color: var(--fundo);
+      color: var(--texto);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+    }
+
+    body.alto-contraste {
+      background-color: var(--contraste-bg);
+      color: var(--contraste-fg);
+    }
+
+    body.alto-contraste main,
+    body.alto-contraste .register-container {
+      background-color: var(--contraste-bg);
+      color: var(--contraste-fg);
+      border: 2px solid var(--contraste-fg);
+    }
+
+    body.alto-contraste input,
+    body.alto-contraste button,
+    body.alto-contraste select {
+      background-color: #111;
+      color: white;
+      border: 1px solid white;
+    }
+
+    body.alto-contraste a {
+      color: var(--contraste-fg);
+    }
+
+    .acessibilidade-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #ddd;
+      padding: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      z-index: 999;
+    }
+
+    .acessibilidade-bar button,
+    .acessibilidade-bar select {
+      font-size: 1rem;
+      margin: 0.25rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: var(--cor-primaria);
+      padding-top: 5rem;
+      transition: all 0.3s ease;
+    }
+
+    .register-container {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      background-color: var(--fundo);
+      color: var(--texto);
+    }
+
+    .register-container h2 {
+      margin-bottom: 1.5rem;
+      color: inherit;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input {
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .register-button {
+      padding: 0.9rem;
+      background-color: var(--cor-secundaria);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .register-button:hover {
+      background-color: var(--cor-destaque);
+      color: #fff;
+    }
+
+    .footer {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--cor-primaria);
+      text-decoration: none;
+    }
+
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus {
+      outline: 2px solid var(--cor-destaque);
+      outline-offset: 0;
+    }
+
+    .oculto {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="acessibilidade-bar">
+    <div>
+      <button onclick="alterarFonte(1)">A+</button>
+      <button onclick="alterarFonte(-1)">A−</button>
+      <button class="btn-reset" onclick="resetarFonte()">Tamanho Padrão</button>
+      <button onclick="alternarContraste()">Alto Contraste</button>
+      <button onclick="alternarLeitura()">Leitura em Voz Alta</button>
+      <button onclick="modoIdoso()">Modo Idoso</button>
+      <button onclick="alternarLibras()">Libras</button>
+    </div>
+    <div>
+      <label for="daltonismo">Daltonismo:</label>
+      <select id="daltonismo" onchange="aplicarFiltro(this.value)">
+        <option value="none">Nenhum</option>
+        <option value="protanopia">Protanopia</option>
+        <option value="deuteranopia">Deuteranopia</option>
+        <option value="tritanopia">Tritanopia</option>
+      </select>
+    </div>
+  </div>
+
+  <main>
+    <div class="register-container">
+      <h2>Crie sua conta</h2>
+      <form>
+        <input type="text" placeholder="Nome completo" required />
+        <input type="email" placeholder="E-mail" required />
+        <input type="text" placeholder="Nome de usuário" required />
+        <input type="password" placeholder="Senha" required />
+        <input type="password" placeholder="Confirmar senha" required />
+        <button type="submit" class="register-button">Cadastrar</button>
+      </form>
+      <div class="footer">
+        <p><a href="#">Já tem conta? Faça login</a></p>
+      </div>
+    </div>
+  </main>
+
+  <div id="libras-container" class="oculto">
+    <iframe src="https://www.vlibras.gov.br/app" width="100%" height="400" title="VLibras Plugin"></iframe>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
