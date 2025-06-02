@@ -61,12 +61,6 @@ function aplicarFiltro(tipo) {
   }
 }
 
-function alternarLibras() {
-  librasAtivo = !librasAtivo;
-  const container = document.getElementById('libras-container');
-  container.classList.toggle('oculto', !librasAtivo);
-}
-
 async function fazerLogoff() {
   const userId = localStorage.getItem('userId'); // Assume que o ID do usuário está no localStorage
 
