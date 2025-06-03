@@ -106,7 +106,7 @@ async function handleLoginSubmit(e) {
             document.getElementById('login-form').reset();
             // Redireciona para a página principal (menu.html) após um pequeno atraso
             setTimeout(() => {
-                navigateTo('menu.html'); // Redireciona para menu.html
+                navigateTo('site.html'); // Redireciona para menu.html
             }, 1000);
         } else {
             messageElement.textContent = data.error || 'Credenciais inválidas.';
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verifica se o usuário já está logado ao carregar a página de login
     // Se sim, redireciona para a página principal (menu.html)
     if (sessionStorage.getItem('isLoggedIn') === 'true') {
-        navigateTo('menu.html'); // Redireciona para menu.html
+        navigateTo('site.html'); // Redireciona para menu.html
         return; // Impede que o restante do script seja executado
     }
 
