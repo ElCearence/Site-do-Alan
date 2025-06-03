@@ -15,8 +15,14 @@ body {
   color: var(--texto);                   /* Define a cor do texto padrão */
   font-family: Arial, sans-serif;        /* Define a fonte usada no corpo */
   line-height: 1.6;                      /* Define o espaçamento entre linhas */
-  padding: 6rem;                         /* Adiciona espaço interno ao redor do conteúdo */
   transition: all 0.3s ease;             /* Suaviza as transições visuais */
+
+  /* Estilos para layout de página completa com sticky footer */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0; /* Remove margens padrão do navegador */
+  padding: 0; /* Remove preenchimento padrão do navegador */
 }
 
 body.alto-contraste {
@@ -33,7 +39,8 @@ body.alto-contraste .card,
 body.alto-contraste header,
 body.alto-contraste nav,
 body.alto-contraste footer,
-body.alto-contraste .acessibilidade-bar {
+body.alto-contraste .acessibilidade-bar,
+body.alto-contraste .logout-container { /* Adicionado logout-container */
   background-color: var(--contraste-bg) !important;  /* Fundo preto em modo alto contraste */
   color: var(--contraste-fg) !important;             /* Texto branco em modo alto contraste */
   border-color: var(--contraste-fg) !important;      /* Borda branca em modo alto contraste */
@@ -47,6 +54,13 @@ body.alto-contraste button {
   color: white;                         /* Texto branco */
   border: 1px solid white;              /* Borda branca */
 }
+
+body.alto-contraste .logout-button { /* Estilo específico para o botão de logout em alto contraste */
+    background-color: #660000 !important; /* Vermelho escuro */
+    color: white !important;
+    border: 1px solid white !important;
+}
+
 
 .acessibilidade-bar {
   position: fixed;                      /* Fixa a barra no topo da página */
@@ -71,7 +85,11 @@ body.alto-contraste button {
 }
 
 main {
-  margin-top: 5rem;                     /* Adiciona espaço acima do conteúdo principal */
+  flex: 1; /* Faz o main ocupar o espaço restante */
+  padding-top: 5rem; /* Adiciona espaço acima do conteúdo principal para a barra fixa */
+  padding-left: 1rem; /* Adiciona algum padding horizontal ao conteúdo principal */
+  padding-right: 1rem;
+  padding-bottom: 2rem; /* Adiciona padding antes do footer */
 }
 
 header,
@@ -110,8 +128,9 @@ section {
   border: 1px solid #ccc;                 /* Borda cinza clara */
   border-radius: 8px;                     /* Arredonda os cantos */
   padding: 1rem;                          /* Espaço interno */
-  margin: 1rem 0;                         /* Espaço vertical */
+  margin: 1rem auto;                      /* Espaço vertical e centraliza */
   background-color: white;               /* Fundo branco */
+  max-width: 768px; /* Limita a largura do card para melhor leitura */
 }
 
 .btn-reset {
@@ -130,4 +149,31 @@ textarea:focus,
 select:focus {
   outline: 2px solid var(--cor-destaque);  /* Contorno vermelho para acessibilidade por teclado */
   outline-offset: 0px;                     /* Espaço entre o foco e o elemento */
+}
+
+/* Estilos para o botão de logout */
+.logout-container {
+  text-align: center;
+  padding: 20px;
+  margin-top: auto; /* Empurra para o final da página */
+  background-color: var(--fundo);
+  border-top: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+.logout-button {
+  background-color: var(--cor-destaque); /* Usa a cor de destaque para o botão, consistente com outros */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px; /* Consistente com outros botões */
+  font-size: 1rem;
+  font-weight: bold; /* Consistente com outros botões */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c82333; /* Vermelho um pouco mais escuro no hover */
+  color: #fff;
 }

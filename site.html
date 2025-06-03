@@ -1,15 +1,17 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Site Acessível</title>
+  <!-- Link para o seu arquivo de estilos style.css -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Não há mais estilos inline aqui, tudo está no style.css ou é essencial para o SVG -->
 </head>
 
 <body>  
 
+  <!-- Barra de acessibilidade -->
   <div class="acessibilidade-bar">
     <div>
       <button onclick="alterarFonte(1)">A+</button>
@@ -18,6 +20,7 @@
       <button onclick="alternarContraste()">Alto Contraste</button>
       <button onclick="alternarLeitura()">Leitura em Voz Alta</button>
       <button onclick="modoIdoso()">Modo Idoso</button>
+      <button onclick="alternarLibras()">Libras</button>
     </div>
     <div>
       <label for="daltonismo">Daltonismo:</label>
@@ -89,158 +92,41 @@
   </footer>
 
   <div id="libras-container" class="oculto">
-    <iframe src="https://www.vlibras.gov.br/app" width="100%" height="400" title="Plugin VLibras"></iframe>
+    <!-- O iframe será adicionado dinamicamente pelo JS -->
   </div>
 
-  <script src="script.js"></script>
-</body>
-
-</html>
- -->
-
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal</title>
-    <!-- Inclua seu CSS aqui, ou use Tailwind CSS CDN se preferir -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Seus estilos CSS existentes ou personalizados para site.html */
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Garante que o footer fique no final */
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        main {
-            flex: 1; /* Faz o conteúdo principal ocupar o espaço restante */
-            padding: 20px;
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .logout-container {
-            text-align: center;
-            padding: 20px;
-            margin-top: auto; /* Empurra para o final da página */
-            background-color: #eee;
-            border-top: 1px solid #ccc;
-        }
-        .logout-button {
-            background-color: #dc3545; /* Cor vermelha para logout */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-        .logout-button:hover {
-            background-color: #c82333;
-        }
-    </style>
-</head>
-<body>
-    <main>
-
-  <header>
-    <h1>Bem-vindo ao Site Acessível</h1>
-    <p>Seu portal com foco em inclusão digital e navegação simplificada.</p>
-  </header>
-
-  <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#contato">Contato</a>
-  </nav>
-
-  <main>
-    <section id="sobre">
-      <h2>Sobre Nós</h2>
-      <div class="card">
-        <p>
-          Nosso site foi criado com o propósito de garantir acessibilidade para todos os públicos, incluindo pessoas com
-          baixa visão, idosos e com diferentes tipos de daltonismo.
-        </p>
-        <p>
-          Palavras como <span class="tooltip" title="Dificuldade em distinguir certas cores">daltonismo</span> e <span
-            class="tooltip" title="Problemas de visão que dificultam a leitura normal">baixa visão</span> têm
-          explicações rápidas para facilitar a compreensão.
-        </p>
-      </div>
-    </section>
-
-    <section id="servicos">
-      <h2>Serviços</h2>
-      <div class="card">
-        <ul>
-          <li>Consultoria em acessibilidade digital</li>
-          <li>Desenvolvimento de sites inclusivos</li>
-          <li>Treinamentos sobre inclusão digital</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="contato">
-      <h2>Contato</h2>
-      <div class="card">
-        <p>Entre em contato conosco pelo e-mail: <strong>contato@siteacessivel.com</strong></p>
-        <p>Ou envie uma mensagem pelo nosso formulário abaixo:</p>
-        <form>
-          <label for="nome">Nome:</label><br />
-          <input type="text" id="nome" name="nome" /><br /><br />
-          <label for="mensagem">Mensagem:</label><br />
-          <textarea id="mensagem" name="mensagem" rows="4" cols="40"></textarea><br /><br />
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Site Acessível. Todos os direitos reservados.</p>
-  </footer>
-
-  <div id="libras-container" class="oculto">
-    <iframe src="https://www.vlibras.gov.br/app" width="100%" height="400" title="Plugin VLibras"></iframe>
+  <!-- Botão de Logout -->
+  <div class="logout-container">
+      <button class="logout-button" onclick="fazerLogoff()">Sair</button>
   </div>
-    </main>
 
-    <div class="logout-container">
-        <button class="logout-button" onclick="fazerLogoff()">Sair</button>
-    </div>
+  <!-- SVG para filtros de daltonismo (necessário para a função aplicarFiltro) -->
+  <svg style="height: 0; width: 0; position: absolute; overflow: hidden;">
+      <filter id="protanopia">
+          <feColorMatrix type="matrix" values="0.567, 0.433, 0, 0, 0 0.558, 0.442, 0, 0, 0 0, 0.242, 0.758, 0, 0 0, 0, 0, 1, 0"/>
+      </filter>
+      <filter id="deuteranopia">
+          <feColorMatrix type="matrix" values="0.625, 0.375, 0, 0, 0 0.7, 0.3, 0, 0, 0 0, 0.3, 0.7, 0, 0 0, 0, 0, 1, 0"/>
+      </filter>
+      <filter id="tritanopia">
+          <feColorMatrix type="matrix" values="0.95, 0.05, 0, 0, 0 0, 0.433, 0.567, 0, 0 0, 0.475, 0.525, 0, 0 0, 0, 0, 1, 0"/>
+      </filter>
+  </svg>
 
-    <!-- Inclua seu arquivo auth.js aqui. É CRUCIAL para a função fazerLogoff() -->
-    <script src="auth.js"></script>
-    <script>
-        // Lógica de proteção para site.html (similar ao menu.html)
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('site.html carregado.');
-            if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-                console.log('Usuário não logado. Redirecionando para login.html.');
-                navigateTo('login.html'); // Redireciona para a página de login
-            } else {
-                console.log('Usuário logado.');
-                // Se houver conteúdo dinâmico para carregar para usuários logados, faça-o aqui
-            }
-        });
-    </script>
+  <!-- Inclua seu arquivo auth.js aqui. É CRUCIAL para a lógica de autenticação e acessibilidade. -->
+  <script src="auth.js"></script>
+  <script>
+    // Lógica de proteção para site.html
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('site.html carregado.');
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            console.log('Usuário não logado. Redirecionando para login.html.');
+            navigateTo('login.html'); // Redireciona para a página de login
+        } else {
+            console.log('Usuário logado.');
+            // Se houver conteúdo dinâmico para carregar para usuários logados, faça-o aqui
+        }
+    });
+  </script>
 </body>
 </html>
