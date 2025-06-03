@@ -235,7 +235,7 @@ function alternarLibras() {
   if (librasAtivo && !container.querySelector('iframe')) {
       const iframe = document.createElement('iframe');
       // CORRIGIDO: Usando HTTPS para o VLibras
-      iframe.src = "https://www.vlibras.gov.br/app";
+      iframe.src = "https://www.vlibras.gov.br/app"; // ESTA LINHA DEVE ESTAR COM HTTPS
       iframe.width = "100%";
       iframe.height = "400";
       iframe.title = "VLibras Plugin";
