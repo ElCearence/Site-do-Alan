@@ -152,7 +152,8 @@
   </svg>
 
   <!-- Inclua seu arquivo auth.js aqui. É CRUCIAL para a lógica de autenticação e acessibilidade. -->
-  <script src="auth.js"></script>
+  <!-- Adicionado um parâmetro de query para cache-busting -->
+  <script src="auth.js?v=202506031541"></script>
   <script>
     // Lógica de proteção para site.html
     document.addEventListener('DOMContentLoaded', () => {
