@@ -81,14 +81,14 @@ async function fazerLogoff() {
         console.log('Logoff via POST bem-sucedido.');
         // Redireciona após o sucesso do POST
         // Substitua 'menu.html' pela URL de destino desejada
-        window.location.href = "menu.html"; 
+        window.location.href = "index.html"; 
       } else {
         console.error('Falha na requisição POST de logoff:', response.status, response.statusText);
         // Decide o que fazer em caso de falha no POST.
         // Por enquanto, redireciona mesmo assim, mas pode ser alterado.
         // alert('Houve um problema ao registrar o logoff, mas você será redirecionado.'); // Opcional
         // Substitua 'menu.html' pela URL de destino desejada
-        window.location.href = "menu.html"; 
+        window.location.href = "index.html"; 
       }
 
       // pinto
@@ -98,13 +98,13 @@ async function fazerLogoff() {
       // Por enquanto, redireciona mesmo assim.
       // alert('Erro de conexão ao tentar registrar o logoff, mas você será redirecionado.'); // Opcional
       // Substitua 'menu.html' pela URL de destino desejada
-      window.location.href = "menu.html"; 
+      window.location.href = "index.html"; 
     }
   } else {
     console.log('Nenhum ID de usuário encontrado. Redirecionando diretamente.');
     // Se não houver ID de usuário, redireciona diretamente
     // Substitua 'menu.html' pela URL de destino desejada
-    window.location.href = "menu.html"; 
+    window.location.href = "index.html"; 
   }
 }
 

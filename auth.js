@@ -288,8 +288,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Verifica se o usuário já está logado ao carregar a página de login
     if (sessionStorage.getItem('isLoggedIn') === 'true') {
-        console.log('Usuário já logado. Redirecionando para menu.html.');
-        navigateTo('menu.html');
+        console.log('Usuário já logado. Redirecionando para index.html.');
+        navigateTo('index.html');
         return;
     }
 
