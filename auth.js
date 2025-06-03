@@ -5,7 +5,7 @@ const API_BASE_URL = 'https://alan.gabiru-server.site';
 
 /**
  * Navega para um caminho de arquivo HTML especificado.
- * @param {string} filePath - O caminho do arquivo HTML (ex: 'login.html', 'home.html').
+ * @param {string} filePath - O caminho do arquivo HTML (ex: 'login.html', 'index.html').
  */
 function navigateTo(filePath) {
     console.log(`Navegando para: ${filePath}`);
@@ -25,6 +25,8 @@ async function handleRegisterSubmit(e) {
 
     const name = document.getElementById('register-name').value;
     const email = document.getElementById('register-email').value;
+    // O backend Flask fornecido não usa 'username', apenas 'nome' e 'email'
+    // const username = document.getElementById('register-username').value;
     const password = document.getElementById('register-password').value;
     const confirmPassword = document.getElementById('register-confirm-password').value;
     const messageElement = document.getElementById('register-message');
@@ -79,7 +81,7 @@ async function handleRegisterSubmit(e) {
  */
 async function handleLoginSubmit(e) {
     e.preventDefault(); // Impede o recarregamento padrão da página
-    console.log('handleLoginSubmit chamado.'); // Confirma que a função foi acionada
+    console.log('handleLoginSubmit chamado.');
 
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
@@ -88,10 +90,10 @@ async function handleLoginSubmit(e) {
     messageElement.textContent = ''; // Limpa mensagens anteriores
     messageElement.style.color = ''; // Reseta a cor
 
-    console.log('Tentando login com:', { email, password }); // Mostra os dados que serão enviados
+    console.log('Tentando login com:', { email, password });
 
     try {
-        console.log('Enviando requisição de login para:', `${API_BASE_URL}/login`); // Antes do fetch
+        console.log('Enviando requisição de login para:', `${API_BASE_URL}/login`);
         const response = await fetch(`${API_BASE_URL}/login`, {
             method: 'POST',
             headers: {
@@ -102,7 +104,7 @@ async function handleLoginSubmit(e) {
         });
 
         const data = await response.json();
-        console.log('Resposta do backend (login):', response.status, data); // Resposta completa
+        console.log('Resposta do backend (login):', response.status, data);
 
         if (response.ok) {
             messageElement.textContent = data.message;
@@ -111,7 +113,7 @@ async function handleLoginSubmit(e) {
             console.log('Login bem-sucedido. sessionStorage.isLoggedIn definido como true.');
             document.getElementById('login-form').reset();
             setTimeout(() => {
-                navigateTo('site.html'); // Redireciona para menu.html
+                navigateTo('index.html'); // Redireciona para a nova página principal (index.html)
             }, 1000);
         } else {
             messageElement.textContent = data.error || 'Credenciais inválidas.';
@@ -119,7 +121,7 @@ async function handleLoginSubmit(e) {
             console.error('Falha no login:', data.error || 'Erro desconhecido.');
         }
     } catch (error) {
-        console.error('Erro de rede ou no servidor (login):', error); // Erros de rede ou do fetch
+        console.error('Erro de rede ou no servidor (login):', error);
         messageElement.textContent = 'Erro de conexão com o servidor. Tente novamente mais tarde.';
         messageElement.style.color = 'red';
     }
@@ -281,17 +283,51 @@ async function fazerLogoff() {
 }
 
 
-// --- Inicialização ---
+// --- Inicialização e Lógica de Proteção de Rota ---
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM completamente carregado. Iniciando script auth.js.');
 
-    // Verifica se o usuário já está logado ao carregar a página de login
-    if (sessionStorage.getItem('isLoggedIn') === 'true') {
-        console.log('Usuário já logado. Redirecionando para index.html.');
-        navigateTo('site.html');
-        return;
+    const path = window.location.pathname; // Obtém o caminho atual da URL
+
+    // Lógica de proteção para a página principal (index.html)
+    if (path.endsWith('/') || path.endsWith('/index.html')) {
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            console.log('Usuário não logado. Redirecionando para login.html.');
+            navigateTo('login.html');
+            return; // Impede que o restante do script seja executado para esta página
+        } else {
+            console.log('Usuário já logado. Redirecionando para index.html.');
+            // Se o usuário está logado e está em index.html, pode carregar conteúdo protegido
+            // Exemplo: mostrar o ID do usuário logado (se disponível no backend)
+            // fetchUserData(); // Você precisaria de uma função para isso
+        }
     }
+    // Lógica de proteção para a página de login (login.html)
+    else if (path.endsWith('/login.html')) {
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
+            console.log('Usuário já logado. Redirecionando para index.html.');
+            navigateTo('index.html');
+            return;
+        }
+    }
+    // Lógica de proteção para a página de registro (register.html)
+    else if (path.endsWith('/register.html')) {
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
+            console.log('Usuário já logado. Redirecionando para index.html.');
+            navigateTo('index.html');
+            return;
+        }
+    }
+    // Lógica de proteção para a página site.html (se for uma página de conteúdo protegida)
+    else if (path.endsWith('/site.html')) {
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            console.log('Usuário não logado. Redirecionando para login.html.');
+            navigateTo('login.html');
+            return;
+        }
+    }
+
 
     // Adiciona o listener de evento ao formulário de registro (se existir na página)
     const registerForm = document.getElementById('register-form');

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu Inicial</title>
+  <title>Página Principal</title>
   <style>
     :root {
       --fonte-base: 16px;
@@ -24,6 +24,9 @@
       line-height: 1.6;
       transition: all 0.3s ease;
       margin: 0;
+      display: flex; /* Para layout flexbox */
+      flex-direction: column; /* Conteúdo em coluna */
+      min-height: 100vh; /* Ocupa a altura total da viewport */
     }
 
     body.alto-contraste {
@@ -31,10 +34,14 @@
       color: var(--contraste-fg);
     }
 
-    body.alto-contraste .menu-container {
-      background-color: var(--contraste-bg);
-      color: var(--contraste-fg);
-      border: 2px solid var(--contraste-fg);
+    body.alto-contraste .menu-container,
+    body.alto-contraste main,
+    body.alto-contraste header,
+    body.alto-contraste footer,
+    body.alto-contraste .acessibilidade-bar {
+      background-color: var(--contraste-bg) !important;
+      color: var(--contraste-fg) !important;
+      border-color: var(--contraste-fg) !important;
     }
 
     body.alto-contraste button,
@@ -67,12 +74,13 @@
     }
 
     main {
+      flex: 1; /* Faz o main ocupar o espaço restante */
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       background-color: var(--cor-primaria);
-      padding-top: 5rem;
+      padding-top: 5rem; /* Espaço para a barra de acessibilidade */
+      transition: all 0.3s ease;
     }
 
     .menu-container {
@@ -120,6 +128,27 @@
     .oculto {
       display: none;
     }
+
+    .logout-container {
+        text-align: center;
+        padding: 20px;
+        margin-top: auto; /* Empurra para o final da página */
+        background-color: #eee;
+        border-top: 1px solid #ccc;
+    }
+    .logout-button {
+        background-color: #dc3545; /* Cor vermelha para logout */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+    .logout-button:hover {
+        background-color: #c82333;
+    }
   </style>
 </head>
 <body>
@@ -133,6 +162,7 @@
       <button onclick="alternarContraste()">Alto Contraste</button>
       <button onclick="alternarLeitura()">Leitura em Voz Alta</button>
       <button onclick="modoIdoso()">Modo Idoso</button>
+      <button onclick="alternarLibras()">Libras</button>
     </div>
     <div>
       <label for="daltonismo">Daltonismo:</label>
@@ -147,18 +177,59 @@
 
   <!-- Conteúdo principal -->
   <main>
-    <div class="menu-container">
+    <div class="menu-container" id="main-content-logged-out">
       <h1>Bem-vindo!</h1>
-      <button class="menu-button" onclick="window.location.href='login.html'">Fazer Login</button>
-      <button class="menu-button" onclick="window.location.href='cadastro.html'">Cadastrar-se</button>
+      <p>Faça login ou cadastre-se para acessar o conteúdo.</p>
+      <button class="menu-button" onclick="navigateTo('login.html')">Fazer Login</button>
+      <button class="menu-button" onclick="navigateTo('register.html')">Cadastrar-se</button>
+    </div>
+
+    <div class="menu-container oculto" id="main-content-logged-in">
+        <h1>Bem-vindo, Usuário Logado!</h1>
+        <p>Você está na página principal protegida.</p>
+        <p>Aqui você pode adicionar links para outras páginas do seu site, como <a href="site.html" class="text-blue-600 hover:underline">Site Acessível</a>.</p>
+        <p>O seu ID de sessão é: <span id="session-id">N/A</span></p>
+        <button class="menu-button" onclick="navigateTo('site.html')">Ir para o Site Acessível</button>
     </div>
   </main>
 
   <!-- VLibras -->
   <div id="libras-container" class="oculto">
-    <iframe src="https://www.vlibras.gov.br/app" width="100%" height="400" title="VLibras Plugin"></iframe>
+    <!-- O iframe será adicionado dinamicamente pelo JS -->
   </div>
 
-  <script src="script.js"></script>
+  <!-- Botão de Logout -->
+  <div class="logout-container oculto" id="logout-section">
+      <button class="logout-button" onclick="fazerLogoff()">Sair</button>
+  </div>
+
+  <!-- Inclua seu arquivo auth.js aqui. É CRUCIAL para a lógica de autenticação e acessibilidade. -->
+  <script src="auth.js"></script>
+  <script>
+      // Lógica específica para index.html após o carregamento do auth.js
+      document.addEventListener('DOMContentLoaded', () => {
+          const loggedOutContent = document.getElementById('main-content-logged-out');
+          const loggedInContent = document.getElementById('main-content-logged-in');
+          const logoutSection = document.getElementById('logout-section');
+          const sessionIdDisplay = document.getElementById('session-id');
+
+          if (sessionStorage.getItem('isLoggedIn') === 'true') {
+              loggedOutContent.classList.add('oculto');
+              loggedInContent.classList.remove('oculto');
+              logoutSection.classList.remove('oculto');
+
+              // Opcional: Tentar buscar o ID do usuário se o backend fornecer uma rota para isso
+              // fetchUserId().then(userId => {
+              //     if (userId) {
+              //         sessionIdDisplay.textContent = userId;
+              //     }
+              // });
+          } else {
+              loggedOutContent.classList.remove('oculto');
+              loggedInContent.classList.add('oculto');
+              logoutSection.classList.add('oculto');
+          }
+      });
+  </script>
 </body>
 </html>
