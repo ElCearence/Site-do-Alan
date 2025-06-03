@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página Principal</title>
@@ -207,3 +208,115 @@
   </script>
 </body>
 </html>
+=======
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Site Acessível</title>
+  <link rel="stylesheet" href="style.css" />
+  </head>
+
+<body>  
+
+  <header>
+    <h1>Bem-vindo ao Site Acessível</h1>
+    <p>Seu portal com foco em inclusão digital e navegação simplificada.</p>
+  </header>
+
+  <nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <main>
+    <section id="sobre">
+      <h2>Sobre Nós</h2>
+      <div class="card">
+        <p>
+          Nosso site foi criado com o propósito de garantir acessibilidade para todos os públicos, incluindo pessoas com
+          baixa visão, idosos e com diferentes tipos de daltonismo.
+        </p>
+        <p>
+          Palavras como <span class="tooltip" title="Dificuldade em distinguir certas cores">daltonismo</span> e <span
+            class="tooltip" title="Problemas de visão que dificultam a leitura normal">baixa visão</span> têm
+          explicações rápidas para facilitar a compreensão.
+        </p>
+      </div>
+    </section>
+
+    <section id="servicos">
+      <h2>Serviços</h2>
+      <div class="card">
+        <ul>
+          <li>Consultoria em acessibilidade digital</li>
+          <li>Desenvolvimento de sites inclusivos</li>
+          <li>Treinamentos sobre inclusão digital</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contato">
+      <h2>Contato</h2>
+      <div class="card">
+        <p>Entre em contato conosco pelo e-mail: <strong>contato@siteacessivel.com</strong></p>
+        <p>Ou envie uma mensagem pelo nosso formulário abaixo:</p>
+        <form>
+          <label for="nome">Nome:</label><br />
+          <input type="text" id="nome" name="nome" /><br /><br />
+          <label for="mensagem">Mensagem:</label><br />
+          <textarea id="mensagem" name="mensagem" rows="4" cols="40"></textarea><br /><br />
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Site Acessível. Todos os direitos reservados.</p>
+  </footer>
+
+  <div id="libras-container" class="oculto">
+    </div>
+
+  <div class="logout-container">
+      <button class="logout-button" onclick="fazerLogoff()">Sair</button>
+  </div>
+
+  <svg style="height: 0; width: 0; position: absolute; overflow: hidden;">
+      <filter id="protanopia">
+          <feColorMatrix type="matrix" values="0.567, 0.433, 0, 0, 0 0.558, 0.442, 0, 0, 0 0, 0.242, 0.758, 0, 0 0, 0, 0, 1, 0"/>
+      </filter>
+      <filter id="deuteranopia">
+          <feColorMatrix type="matrix" values="0.625, 0.375, 0, 0, 0 0.7, 0.3, 0, 0, 0 0, 0.3, 0.7, 0, 0 0, 0, 0, 1, 0"/>
+      </filter>
+      <filter id="tritanopia">
+          <feColorMatrix type="matrix" values="0.95, 0.05, 0, 0, 0 0, 0.433, 0.567, 0, 0 0, 0.475, 0.525, 0, 0 0, 0, 0, 1, 0"/>
+      </filter>
+  </svg>
+  <div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+
+  <script defer src="main-auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('site.html carregado.');
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            console.log('Usuário não logado. Redirecionando para login.html.');
+            navigateTo('login.html');
+        } else {
+            console.log('Usuário logado.');
+        }
+    });
+  </script>
+</body>
+</html>
+>>>>>>> 2f32662 (mudando titulo)
