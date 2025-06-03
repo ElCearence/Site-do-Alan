@@ -5,7 +5,7 @@ const API_BASE_URL = 'https://alan.gabiru-server.site';
 
 /**
  * Navega para um caminho de arquivo HTML especificado.
- * @param {string} filePath - O caminho do arquivo HTML (ex: 'login.html', 'index.html').
+ * @param {string} filePath - O caminho do arquivo HTML (ex: 'login.html', 'home.html').
  */
 function navigateTo(filePath) {
     console.log(`Navegando para: ${filePath}`);
@@ -25,8 +25,6 @@ async function handleRegisterSubmit(e) {
 
     const name = document.getElementById('register-name').value;
     const email = document.getElementById('register-email').value;
-    // O backend Flask fornecido não usa 'username', apenas 'nome' e 'email'
-    // const username = document.getElementById('register-username').value;
     const password = document.getElementById('register-password').value;
     const confirmPassword = document.getElementById('register-confirm-password').value;
     const messageElement = document.getElementById('register-message');
@@ -236,6 +234,7 @@ function alternarLibras() {
   // Adiciona o iframe VLibras apenas se estiver ativado e ainda não existir
   if (librasAtivo && !container.querySelector('iframe')) {
       const iframe = document.createElement('iframe');
+      // CORRIGIDO: Usando HTTPS para o VLibras
       iframe.src = "https://www.vlibras.gov.br/app";
       iframe.width = "100%";
       iframe.height = "400";
@@ -297,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
             navigateTo('login.html');
             return; // Impede que o restante do script seja executado para esta página
         } else {
-            console.log('Usuário já logado. Redirecionando para index.html.');
+            console.log('Usuário logado. Permanecendo em index.html.');
             // Se o usuário está logado e está em index.html, pode carregar conteúdo protegido
             // Exemplo: mostrar o ID do usuário logado (se disponível no backend)
             // fetchUserData(); // Você precisaria de uma função para isso
