@@ -8,6 +8,7 @@ const API_BASE_URL = 'https://alan.gabiru-server.site';
  * @param {string} filePath - O caminho do arquivo HTML (ex: 'login.html', 'home.html').
  */
 function navigateTo(filePath) {
+    console.log(`Navegando para: ${filePath}`);
     window.location.href = filePath;
 }
 
@@ -20,11 +21,10 @@ function navigateTo(filePath) {
  */
 async function handleRegisterSubmit(e) {
     e.preventDefault(); // Impede o recarregamento padrão da página
+    console.log('handleRegisterSubmit chamado.');
 
     const name = document.getElementById('register-name').value;
     const email = document.getElementById('register-email').value;
-    // O backend Flask fornecido não usa 'username', apenas 'nome' e 'email'
-    // const username = document.getElementById('register-username').value;
     const password = document.getElementById('register-password').value;
     const confirmPassword = document.getElementById('register-confirm-password').value;
     const messageElement = document.getElementById('register-message');
@@ -35,10 +35,12 @@ async function handleRegisterSubmit(e) {
     if (password !== confirmPassword) {
         messageElement.textContent = 'As senhas não coincidem!';
         messageElement.style.color = 'red';
+        console.warn('Senhas não coincidem.');
         return;
     }
 
     try {
+        console.log('Enviando requisição de registro para:', `${API_BASE_URL}/registrar`);
         const response = await fetch(`${API_BASE_URL}/registrar`, {
             method: 'POST',
             headers: {
@@ -48,13 +50,12 @@ async function handleRegisterSubmit(e) {
         });
 
         const data = await response.json();
+        console.log('Resposta do backend (registro):', data);
 
         if (response.ok) {
             messageElement.textContent = data.message;
             messageElement.style.color = 'green';
-            // Limpa o formulário após o registro bem-sucedido
             document.getElementById('register-form').reset();
-            // Redireciona para a página de login após um pequeno atraso
             setTimeout(() => {
                 navigateTo('login.html');
             }, 1500);
@@ -63,7 +64,7 @@ async function handleRegisterSubmit(e) {
             messageElement.style.color = 'red';
         }
     } catch (error) {
-        console.error('Erro de rede ou no servidor:', error);
+        console.error('Erro de rede ou no servidor (registro):', error);
         messageElement.textContent = 'Erro de conexão com o servidor. Tente novamente mais tarde.';
         messageElement.style.color = 'red';
     }
@@ -78,6 +79,7 @@ async function handleRegisterSubmit(e) {
  */
 async function handleLoginSubmit(e) {
     e.preventDefault(); // Impede o recarregamento padrão da página
+    console.log('handleLoginSubmit chamado.'); // Confirma que a função foi acionada
 
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
@@ -86,7 +88,10 @@ async function handleLoginSubmit(e) {
     messageElement.textContent = ''; // Limpa mensagens anteriores
     messageElement.style.color = ''; // Reseta a cor
 
+    console.log('Tentando login com:', { email, password }); // Mostra os dados que serão enviados
+
     try {
+        console.log('Enviando requisição de login para:', `${API_BASE_URL}/login`); // Antes do fetch
         const response = await fetch(`${API_BASE_URL}/login`, {
             method: 'POST',
             headers: {
@@ -97,23 +102,24 @@ async function handleLoginSubmit(e) {
         });
 
         const data = await response.json();
+        console.log('Resposta do backend (login):', response.status, data); // Resposta completa
 
         if (response.ok) {
             messageElement.textContent = data.message;
             messageElement.style.color = 'green';
             sessionStorage.setItem('isLoggedIn', 'true'); // Armazena o estado de login
-            // Limpa o formulário
+            console.log('Login bem-sucedido. sessionStorage.isLoggedIn definido como true.');
             document.getElementById('login-form').reset();
-            // Redireciona para a página principal (menu.html) após um pequeno atraso
             setTimeout(() => {
-                navigateTo('site.html'); // Redireciona para menu.html
+                navigateTo('menu.html'); // Redireciona para menu.html
             }, 1000);
         } else {
             messageElement.textContent = data.error || 'Credenciais inválidas.';
             messageElement.style.color = 'red';
+            console.error('Falha no login:', data.error || 'Erro desconhecido.');
         }
     } catch (error) {
-        console.error('Erro de rede ou no servidor:', error);
+        console.error('Erro de rede ou no servidor (login):', error); // Erros de rede ou do fetch
         messageElement.textContent = 'Erro de conexão com o servidor. Tente novamente mais tarde.';
         messageElement.style.color = 'red';
     }
@@ -134,6 +140,7 @@ let librasAtivo = false;
 function alterarFonte(incremento) {
   fonteAtual += incremento;
   document.documentElement.style.setProperty('--fonte-base', fonteAtual + 'px');
+  console.log('Tamanho da fonte alterado para:', fonteAtual);
 }
 
 /**
@@ -143,6 +150,7 @@ function resetarFonte() {
   fonteAtual = 16; // Volta ao tamanho padrão
   document.documentElement.style.setProperty('--fonte-base', fonteAtual + 'px');
   document.body.style.lineHeight = '1.6'; // Volta ao line-height padrão
+  console.log('Fonte resetada para padrão.');
 }
 
 /**
@@ -151,6 +159,7 @@ function resetarFonte() {
 function alternarContraste() {
   contrasteAtivo = !contrasteAtivo;
   document.body.classList.toggle("alto-contraste", contrasteAtivo);
+  console.log('Alto contraste:', contrasteAtivo ? 'Ativo' : 'Inativo');
 }
 
 /**
@@ -164,12 +173,14 @@ function alternarLeitura() {
         speechSynthesis.speak(msg);
         leituraAtiva = true;
         msg.onend = () => leituraAtiva = false;
+        console.log('Leitura em voz alta iniciada.');
     } else {
         console.warn('Conteúdo principal para leitura não encontrado (tag <main>).');
     }
   } else {
     speechSynthesis.cancel();
     leituraAtiva = false;
+    console.log('Leitura em voz alta parada.');
   }
 }
 
@@ -179,6 +190,7 @@ function alternarLeitura() {
 function modoIdoso() {
   alterarFonte(4); // Aumenta a fonte em 4px
   document.body.style.lineHeight = '2'; // Aumenta o espaçamento da linha
+  console.log('Modo Idoso ativado.');
 }
 
 /**
@@ -208,6 +220,7 @@ function aplicarFiltro(tipo) {
       root.style.setProperty('--cor-secundaria', '#ffaa00');
       root.style.setProperty('--cor-destaque', '#dd3333');
   }
+  console.log('Filtro de daltonismo aplicado:', tipo);
 }
 
 /**
@@ -226,6 +239,11 @@ function alternarLibras() {
       iframe.height = "400";
       iframe.title = "VLibras Plugin";
       container.appendChild(iframe);
+      console.log('VLibras iframe adicionado.');
+  } else if (!librasAtivo && container.querySelector('iframe')) {
+      // Opcional: remover o iframe quando desativado para liberar recursos
+      // container.removeChild(container.querySelector('iframe'));
+      console.log('VLibras desativado.');
   }
 }
 
@@ -238,8 +256,6 @@ function alternarLibras() {
 async function fazerLogoff() {
   console.log('Tentando fazer logoff...');
   try {
-    // O endpoint de logout do Flask não espera um body, apenas o cookie de sessão.
-    // 'credentials: include' é crucial para enviar o cookie.
     const response = await fetch(`${API_BASE_URL}/logout`, {
       method: 'POST',
       headers: {
@@ -252,17 +268,14 @@ async function fazerLogoff() {
       console.log('Logoff bem-sucedido no backend.');
     } else {
       console.error('Falha na requisição de logoff:', response.status, response.statusText);
-      // Opcional: Logar o erro do backend se houver
       const errorData = await response.json();
       console.error('Mensagem de erro do backend:', errorData.error || errorData.message);
     }
   } catch (error) {
     console.error('Erro ao tentar fazer a requisição de logoff:', error);
   } finally {
-    // Sempre limpa o estado de login no frontend e redireciona,
-    // independentemente do sucesso da requisição ao backend,
-    // para garantir que o usuário não permaneça "logado" no frontend.
     sessionStorage.removeItem('isLoggedIn');
+    console.log('sessionStorage.isLoggedIn removido. Redirecionando para login.html.');
     navigateTo('login.html'); // Redireciona para a página de login
   }
 }
@@ -271,23 +284,31 @@ async function fazerLogoff() {
 // --- Inicialização ---
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM completamente carregado. Iniciando script auth.js.');
+
     // Verifica se o usuário já está logado ao carregar a página de login
-    // Se sim, redireciona para a página principal (menu.html)
     if (sessionStorage.getItem('isLoggedIn') === 'true') {
-        navigateTo('site.html'); // Redireciona para menu.html
-        return; // Impede que o restante do script seja executado
+        console.log('Usuário já logado. Redirecionando para menu.html.');
+        navigateTo('menu.html');
+        return;
     }
 
     // Adiciona o listener de evento ao formulário de registro (se existir na página)
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
         registerForm.addEventListener('submit', handleRegisterSubmit);
+        console.log('Listener de submit para formulário de registro anexado.');
+    } else {
+        console.log('Formulário de registro (id="register-form") não encontrado nesta página.');
     }
 
     // Adiciona o listener de evento ao formulário de login (se existir na página)
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', handleLoginSubmit);
+        console.log('Listener de submit para formulário de login anexado.');
+    } else {
+        console.log('Formulário de login (id="login-form") não encontrado nesta página.');
     }
 
     // Expondo as funções globalmente para que possam ser chamadas do HTML
@@ -299,5 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.aplicarFiltro = aplicarFiltro;
     window.alternarLibras = alternarLibras;
     window.navigateTo = navigateTo;
-    window.fazerLogoff = fazerLogoff; // Expondo a função de logoff
+    window.fazerLogoff = fazerLogoff;
+    console.log('Funções de acessibilidade e navegação expostas globalmente.');
 });

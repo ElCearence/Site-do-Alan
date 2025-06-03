@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login</title>
   <style>
+    /* Suas variáveis CSS */
     :root {
       --fonte-base: 16px;
       --contraste-bg: #000;
@@ -16,6 +17,7 @@
       --cor-destaque: #dd3333;
     }
 
+    /* Seus estilos CSS existentes */
     body {
       font-size: var(--fonte-base);
       background-color: var(--fundo);
@@ -160,6 +162,7 @@
       <button onclick="alternarContraste()">Alto Contraste</button>
       <button onclick="alternarLeitura()">Leitura em Voz Alta</button>
       <button onclick="modoIdoso()">Modo Idoso</button>
+      <button onclick="alternarLibras()">Libras</button>
     </div>
     <div>
       <label for="daltonismo">Daltonismo:</label>
@@ -174,22 +177,30 @@
 
   <main>
     <div class="login-container">
-      <h2>Login</h2>
-      <form>
-        <input type="text" placeholder="Usuário ou E-mail" required />
-        <input type="password" placeholder="Senha" required />
+      <h2>Bem-vindo de volta</h2>
+      <form id="login-form">
+        <input type="email" id="login-email" placeholder="E-mail" required />
+        <input type="password" id="login-password" placeholder="Senha" required />
         <button type="submit" class="login-button">Entrar</button>
       </form>
       <p id="login-message" style="margin-top: 1rem;"></p>
       <div class="footer">
-        <p><a href="#">Esqueceu sua senha?</a> | <a href="#" onclick="navigateTo('cadastro.html')">Cadastre-se</a></p>
+        <p><a href="#">Esqueceu sua senha?</a> | <a href="#" onclick="navigateTo('register.html')">Cadastre-se</a></p>
       </div>
     </div>
   </main>
 
   <div id="libras-container" class="oculto">
-    </div>
+    <!-- O iframe será adicionado dinamicamente pelo JS -->
+  </div>
 
+  <!-- Verifique se o caminho para auth.js está correto. -->
+  <!-- Se auth.js estiver na mesma pasta que login.html, 'auth.js' é o suficiente. -->
+  <!-- Se estiver em uma subpasta, por exemplo, 'js/auth.js', então use src="js/auth.js" -->
   <script src="auth.js"></script>
+  <script>
+    // Este console.log confirmará que o HTML foi carregado e o script auth.js está sendo referenciado.
+    console.log('login.html carregado e script auth.js referenciado.');
+  </script>
 </body>
 </html>
