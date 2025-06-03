@@ -106,7 +106,7 @@ async function handleLoginSubmit(e) {
             document.getElementById('login-form').reset();
             // Redireciona para a página principal (menu.html) após um pequeno atraso
             setTimeout(() => {
-                navigateTo('site.html'); // Redireciona para menu.html
+                navigateTo('index.html'); // Redireciona para menu.html
             }, 1000);
         } else {
             messageElement.textContent = data.error || 'Credenciais inválidas.';
