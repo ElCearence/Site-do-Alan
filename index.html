@@ -1,15 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Site Acessível</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Inicial</title>
+  <style>
+    :root {
+      --fonte-base: 16px;
+      --contraste-bg: #000;
+      --contraste-fg: #fff;
+      --fundo: #f9f9f9;
+      --texto: #333;
+      --cor-primaria: #0055aa;
+      --cor-secundaria: #ffaa00;
+      --cor-destaque: #dd3333;
+    }
+
+    body {
+      font-size: var(--fonte-base);
+      background-color: var(--fundo);
+      color: var(--texto);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+      margin: 0;
+    }
+
+    body.alto-contraste {
+      background-color: var(--contraste-bg);
+      color: var(--contraste-fg);
+    }
+
+    body.alto-contraste .menu-container {
+      background-color: var(--contraste-bg);
+      color: var(--contraste-fg);
+      border: 2px solid var(--contraste-fg);
+    }
+
+    body.alto-contraste button,
+    body.alto-contraste select {
+      background-color: #111;
+      color: white;
+      border: 1px solid white;
+    }
+
+    .acessibilidade-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #ddd;
+      padding: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      z-index: 999;
+    }
+
+    .acessibilidade-bar button,
+    .acessibilidade-bar select {
+      font-size: 1rem;
+      margin: 0.25rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: var(--cor-primaria);
+      padding-top: 5rem;
+    }
+
+    .menu-container {
+      background-color: var(--fundo);
+      color: var(--texto);
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .menu-container h1 {
+      margin-bottom: 2rem;
+    }
+
+    .menu-button {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--cor-secundaria);
+      color: #000;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .menu-button:hover {
+      background-color: var(--cor-destaque);
+      color: #fff;
+    }
+
+    a:focus,
+    button:focus,
+    select:focus {
+      outline: 2px solid var(--cor-destaque);
+      outline-offset: 0;
+    }
+
+    .oculto {
+      display: none;
+    }
+  </style>
 </head>
+<body>
 
-<body>  
-
+  <!-- Barra de acessibilidade -->
   <div class="acessibilidade-bar">
     <div>
       <button onclick="alterarFonte(1)">A+</button>
@@ -30,69 +145,20 @@
     </div>
   </div>
 
-  <header>
-    <h1>Bem-vindo ao Site Acessível</h1>
-    <p>Seu portal com foco em inclusão digital e navegação simplificada.</p>
-  </header>
-
-  <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#contato">Contato</a>
-  </nav>
-
+  <!-- Conteúdo principal -->
   <main>
-    <section id="sobre">
-      <h2>Sobre Nós</h2>
-      <div class="card">
-        <p>
-          Nosso site foi criado com o propósito de garantir acessibilidade para todos os públicos, incluindo pessoas com
-          baixa visão, idosos e com diferentes tipos de daltonismo.
-        </p>
-        <p>
-          Palavras como <span class="tooltip" title="Dificuldade em distinguir certas cores">daltonismo</span> e <span
-            class="tooltip" title="Problemas de visão que dificultam a leitura normal">baixa visão</span> têm
-          explicações rápidas para facilitar a compreensão.
-        </p>
-      </div>
-    </section>
-
-    <section id="servicos">
-      <h2>Serviços</h2>
-      <div class="card">
-        <ul>
-          <li>Consultoria em acessibilidade digital</li>
-          <li>Desenvolvimento de sites inclusivos</li>
-          <li>Treinamentos sobre inclusão digital</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="contato">
-      <h2>Contato</h2>
-      <div class="card">
-        <p>Entre em contato conosco pelo e-mail: <strong>contato@siteacessivel.com</strong></p>
-        <p>Ou envie uma mensagem pelo nosso formulário abaixo:</p>
-        <form>
-          <label for="nome">Nome:</label><br />
-          <input type="text" id="nome" name="nome" /><br /><br />
-          <label for="mensagem">Mensagem:</label><br />
-          <textarea id="mensagem" name="mensagem" rows="4" cols="40"></textarea><br /><br />
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
-    </section>
+    <div class="menu-container">
+      <h1>Bem-vindo!</h1>
+      <button class="menu-button" onclick="window.location.href='login.html'">Fazer Login</button>
+      <button class="menu-button" onclick="window.location.href='cadastro.html'">Cadastrar-se</button>
+    </div>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Site Acessível. Todos os direitos reservados.</p>
-  </footer>
-
+  <!-- VLibras -->
   <div id="libras-container" class="oculto">
-    <iframe src="https://www.vlibras.gov.br/app" width="100%" height="400" title="Plugin VLibras"></iframe>
+    <iframe src="https://www.vlibras.gov.br/app" width="100%" height="400" title="VLibras Plugin"></iframe>
   </div>
 
   <script src="script.js"></script>
 </body>
-
 </html>
