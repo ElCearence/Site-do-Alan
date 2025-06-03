@@ -111,7 +111,7 @@ async function handleLoginSubmit(e) {
             console.log('Login bem-sucedido. sessionStorage.isLoggedIn definido como true.');
             document.getElementById('login-form').reset();
             setTimeout(() => {
-                navigateTo('menu.html'); // Redireciona para menu.html
+                navigateTo('site.html'); // Redireciona para menu.html
             }, 1000);
         } else {
             messageElement.textContent = data.error || 'Credenciais inválidas.';
