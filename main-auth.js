@@ -1,5 +1,5 @@
 // URL base do seu backend Flask
-const API_BASE_URL = 'https://acab-45-168-77-154.ngrok-free.app'; // Alterado para o endereço local padrão do Flask
+const API_BASE_URL = 'https://site-alan-back.onrender.com/'; // Alterado para o endereço local padrão do Flask
 
 // --- Funções de Navegação ---
 
