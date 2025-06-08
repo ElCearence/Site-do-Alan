@@ -177,6 +177,10 @@
   <script src="main-auth.js"></script>
   <script>
     console.log('login.html carregado e script auth.js referenciado.');
+      // Aplica o modo alto contraste se o usuário tiver ativado anteriormente
+  if (localStorage.getItem('altoContrasteAtivo') === 'true') {
+    document.body.classList.add('alto-contraste');
+  }
   </script>
 </body>
 </html>
