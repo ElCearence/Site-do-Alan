@@ -187,22 +187,15 @@
           const logoutSection = document.getElementById('logout-section');
           const sessionIdDisplay = document.getElementById('session-id');
 
-          if (sessionStorage.getItem('isLoggedIn') === 'true') {
-              loggedOutContent.classList.add('oculto');
-              loggedInContent.classList.remove('oculto');
-              logoutSection.classList.remove('oculto');
+      loggedOutContent.classList.remove('oculto');
+      loggedInContent.classList.remove('oculto');
 
-              // Opcional: Tentar buscar o ID do usuário se o backend fornecer uma rota para isso
-              // fetchUserId().then(userId => {
-              //     if (userId) {
-              //         sessionIdDisplay.textContent = userId;
-              //     }
-              // });
-          } else {
-              loggedOutContent.classList.remove('oculto');
-              loggedInContent.classList.add('oculto');
-              logoutSection.classList.add('oculto');
-          }
+      if (sessionStorage.getItem('isLoggedIn') === 'true') {
+          logoutSection.classList.remove('oculto');
+      } else {
+          logoutSection.classList.add('oculto');
+      }
+
       });
   </script>
 </body>
