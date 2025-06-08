@@ -1,5 +1,5 @@
 // URL base do seu backend Flask
-const API_BASE_URL = 'https://alan.gabiru-server.site';
+const API_BASE_URL = 'http://127.0.0.1:5000'; // Alterado para o endereço local padrão do Flask
 
 // --- Funções de Navegação ---
 
@@ -227,26 +227,10 @@ function aplicarFiltro(tipo) {
  * Alterna a visibilidade do container VLibras.
  */
 function alternarLibras() {
-  librasAtivo = !librasAtivo;
-  const container = document.getElementById('libras-container');
-  container.classList.toggle('oculto', !librasAtivo);
-
-  // Adiciona o iframe VLibras apenas se estiver ativado e ainda não existir
-  if (librasAtivo && !container.querySelector('iframe')) {
-      const iframe = document.createElement('iframe');
-      // CORRIGIDO: Usando HTTPS para o VLibras
-      iframe.src = "https://www.vlibras.gov.br/app"; // ESTA LINHA DEVE ESTAR COM HTTPS
-      iframe.width = "100%";
-      iframe.height = "400";
-      iframe.title = "VLibras Plugin";
-      container.appendChild(iframe);
-      console.log('VLibras iframe adicionado.');
-  } else if (!librasAtivo && container.querySelector('iframe')) {
-      // Opcional: remover o iframe quando desativado para liberar recursos
-      // container.removeChild(container.querySelector('iframe'));
-      console.log('VLibras desativado.');
-  }
+  const plugin = document.querySelector('[vw]');
+  plugin.classList.toggle('enabled');
 }
+
 
 // --- Lógica de Logoff ---
 
@@ -281,11 +265,36 @@ async function fazerLogoff() {
   }
 }
 
+/**
+ * Carrega o conteúdo da barra de acessibilidade de um arquivo externo.
+ */
+async function loadAccessibilityBar() {
+    try {
+        const response = await fetch('barra_acess.html');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const html = await response.text();
+        const body = document.querySelector('body');
+        if (body) {
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            body.prepend(div.firstElementChild); // Adiciona como primeiro filho do body
+            console.log('Barra de acessibilidade carregada com sucesso.');
+        }
+    } catch (error) {
+        console.error('Erro ao carregar a barra de acessibilidade:', error);
+    }
+}
+
 
 // --- Inicialização e Lógica de Proteção de Rota ---
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => { // Adicionado 'async' aqui
     console.log('DOM completamente carregado. Iniciando script auth.js.');
+
+    // Carrega a barra de acessibilidade primeiro
+    await loadAccessibilityBar(); // Aguarda o carregamento da barra
 
     const path = window.location.pathname; // Obtém o caminho atual da URL
 

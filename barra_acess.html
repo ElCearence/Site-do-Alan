@@ -1,0 +1,20 @@
+<div class="acessibilidade-bar">
+  <div>
+    <button onclick="alterarFonte(1)">A+</button>
+    <button onclick="alterarFonte(-1)">A−</button>
+    <button class="btn-reset" onclick="resetarFonte()">Tamanho Padrão</button>
+    <button onclick="alternarContraste()">Alto Contraste</button>
+    <button onclick="alternarLeitura()">Leitura em Voz Alta</button>
+    <button onclick="modoIdoso()">Modo Idoso</button>
+    <button onclick="alternarLibras()">Libras</button>
+  </div>
+  <div>
+    <label for="daltonismo">Daltonismo:</label>
+    <select id="daltonismo" onchange="aplicarFiltro(this.value)">
+      <option value="none">Nenhum</option>
+      <option value="protanopia">Protanopia</option>
+      <option value="deuteranopia">Deuteranopia</option>
+      <option value="tritanopia">Tritanopia</option>
+    </select>
+  </div>
+</div>

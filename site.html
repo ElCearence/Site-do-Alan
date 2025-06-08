@@ -4,72 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Site Acessível</title>
-  <!-- Link para o seu arquivo de estilos style.css -->
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Estilos adicionais específicos para o layout do site.html, se necessário */
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh; /* Garante que o corpo ocupe a altura total da viewport */
-    }
-    main {
-      flex: 1; /* Faz o conteúdo principal ocupar o espaço restante */
-      padding-top: 5rem; /* Espaço para a barra de acessibilidade fixa */
-    }
-    .logout-container {
-      text-align: center;
-      padding: 20px;
-      margin-top: auto; /* Empurra para o final da página */
-      background-color: var(--fundo); /* Usa a variável de fundo definida no style.css */
-      border-top: 1px solid #ccc;
-    }
-    .logout-button {
-      background-color: #dc3545; /* Cor vermelha para logout */
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-    }
-    .logout-button:hover {
-      background-color: #c82333;
-    }
-    /* Adicione aqui os filtros SVG para daltonismo se não estiverem no style.css ou em outro lugar */
-    svg {
-        height: 0;
-        width: 0;
-        position: absolute;
-        overflow: hidden;
-    }
-  </style>
-</head>
+  </head>
 
 <body>  
-
-  <!-- Barra de acessibilidade -->
-  <div class="acessibilidade-bar">
-    <div>
-      <button onclick="alterarFonte(1)">A+</button>
-      <button onclick="alterarFonte(-1)">A−</button>
-      <button class="btn-reset" onclick="resetarFonte()">Tamanho Padrão</button>
-      <button onclick="alternarContraste()">Alto Contraste</button>
-      <button onclick="alternarLeitura()">Leitura em Voz Alta</button>
-      <button onclick="modoIdoso()">Modo Idoso</button>
-      <button onclick="alternarLibras()">Libras</button>
-    </div>
-    <div>
-      <label for="daltonismo">Daltonismo:</label>
-      <select id="daltonismo" onchange="aplicarFiltro(this.value)">
-        <option value="none">Nenhum</option>
-        <option value="protanopia">Protanopia</option>
-        <option value="deuteranopia">Deuteranopia</option>
-        <option value="tritanopia">Tritanopia</option>
-      </select>
-    </div>
-  </div>
 
   <header>
     <h1>Bem-vindo ao Site Acessível</h1>
@@ -130,15 +68,12 @@
   </footer>
 
   <div id="libras-container" class="oculto">
-    <!-- O iframe VLibras será adicionado dinamicamente pelo auth.js quando a função alternarLibras() for chamada. -->
-  </div>
+    </div>
 
-  <!-- Botão de Logout -->
   <div class="logout-container">
       <button class="logout-button" onclick="fazerLogoff()">Sair</button>
   </div>
 
-  <!-- SVG para filtros de daltonismo (necessário para a função aplicarFiltro) -->
   <svg style="height: 0; width: 0; position: absolute; overflow: hidden;">
       <filter id="protanopia">
           <feColorMatrix type="matrix" values="0.567, 0.433, 0, 0, 0 0.558, 0.442, 0, 0, 0 0, 0.242, 0.758, 0, 0 0, 0, 0, 1, 0"/>
@@ -150,20 +85,27 @@
           <feColorMatrix type="matrix" values="0.95, 0.05, 0, 0, 0 0, 0.433, 0.567, 0, 0 0, 0.475, 0.525, 0, 0 0, 0, 0, 1, 0"/>
       </filter>
   </svg>
+  <div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
 
-  <!-- Inclua seu arquivo auth.js aqui. É CRUCIAL para a lógica de autenticação e acessibilidade. -->
-  <!-- Adicionado um parâmetro de query para cache-busting -->
-  <script src="main-auth.js"></script>
+
+  <script defer src="main-auth.js"></script>
   <script>
-    // Lógica de proteção para site.html
     document.addEventListener('DOMContentLoaded', () => {
         console.log('site.html carregado.');
         if (sessionStorage.getItem('isLoggedIn') !== 'true') {
             console.log('Usuário não logado. Redirecionando para login.html.');
-            navigateTo('login.html'); // Redireciona para a página de login
+            navigateTo('login.html');
         } else {
             console.log('Usuário logado.');
-            // Se houver conteúdo dinâmico para carregar para usuários logados, faça-o aqui
         }
     });
   </script>
