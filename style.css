@@ -1,12 +1,12 @@
 :root {
-  --fonte-base: 16px;                    /* Tamanho base da fonte */
-  --contraste-bg: #000;                  /* Cor de fundo no modo alto contraste */
-  --contraste-fg: #fff;                  /* Cor do texto no modo alto contraste */
-  --fundo: #f9f9f9;                      /* Cor de fundo padrão da página */
-  --texto: #333;                         /* Cor do texto padrão */
-  --cor-primaria: #0055aa;               /* Cor usada no header e footer */
-  --cor-secundaria: #ffaa00;             /* Cor usada no menu de navegação */
-  --cor-destaque: #dd3333;               /* Cor usada para foco (acessibilidade) */
+  --fonte-base: 16px;
+  --contraste-bg: #000;
+  --contraste-fg: #fff;
+  --fundo: #f9f9f9;
+  --texto: #333;
+  --cor-primaria: #0055aa;
+  --cor-secundaria: #ffaa00;
+  --cor-destaque: #dd3333;
 }
 
 body {
@@ -22,6 +22,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 /* ============================ */
 /* MODO ALTO CONTRASTE ESTILO ICB */
 /* ============================ */
@@ -31,17 +32,20 @@ body.alto-contraste {
   font-weight: bold;
 }
 
-/* Cabeçalho, rodapé e barra de acessibilidade */
 body.alto-contraste header,
 body.alto-contraste footer,
 body.alto-contraste .acessibilidade-bar,
-body.alto-contraste .logout-container {
+body.alto-contraste .logout-container,
+body.alto-contraste .menu-container, /* Added for index.html */
+body.alto-contraste main, /* Added for all pages */
+body.alto-contraste .login-container, /* Added for login.html */
+body.alto-contraste .register-container /* Added for register.html */
+{
   background-color: #000 !important;
   color: #ffff00 !important;
   border: none;
 }
 
-/* Navegação */
 body.alto-contraste nav {
   background-color: #ffff00 !important;
   border: none;
@@ -59,7 +63,6 @@ body.alto-contraste nav a:focus {
   color: #000 !important;
 }
 
-/* Seções e títulos */
 body.alto-contraste main section {
   background-color: #000 !important;
   color: #ffff00 !important;
@@ -71,7 +74,6 @@ body.alto-contraste section h2 {
   border-bottom: 2px solid #ffff00 !important;
 }
 
-/* Formulários */
 body.alto-contraste form label {
   color: #ffff00 !important;
 }
@@ -85,20 +87,28 @@ body.alto-contraste select {
 }
 
 body.alto-contraste button,
-body.alto-contraste form button[type="submit"] {
+body.alto-contraste form button[type="submit"],
+body.alto-contraste .login-button, /* Added for login.html */
+body.alto-contraste .register-button, /* Added for register.html */
+body.alto-contraste .menu-button, /* Added for index.html */
+body.alto-contraste .logout-button /* Added for index.html */
+{
   background-color: #ffff00 !important;
   color: #000 !important;
   border: 2px solid #ffff00 !important;
   font-weight: bold;
 }
 
-body.alto-contraste button:hover {
+body.alto-contraste button:hover,
+body.alto-contraste .login-button:hover,
+body.alto-contraste .register-button:hover,
+body.alto-contraste .menu-button:hover,
+body.alto-contraste .logout-button:hover {
   background-color: #000 !important;
   color: #ffff00 !important;
   border: 2px solid #ffff00 !important;
 }
 
-/* Tooltips */
 body.alto-contraste .tooltip {
   border-bottom: 2px dashed #ffff00 !important;
 }
@@ -109,7 +119,6 @@ body.alto-contraste .tooltip:hover::after {
   box-shadow: 0 2px 5px rgba(255, 255, 0, 0.3);
 }
 
-/* Botões da barra de acessibilidade */
 body.alto-contraste .acessibilidade-bar button,
 body.alto-contraste .acessibilidade-bar select {
   background-color: #000 !important;
@@ -118,6 +127,7 @@ body.alto-contraste .acessibilidade-bar select {
   font-weight: bold;
 }
 /*fim alto contraste*/
+
 .acessibilidade-bar {
   position: fixed;
   top: 0;
@@ -178,6 +188,12 @@ main {
   display: grid;
   gap: 2rem;
   grid-template-columns: 1fr;
+  /* Additional styles for main that apply to login/register/index */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--cor-primaria);
+  transition: all 0.3s ease;
 }
 
 @media (min-width: 768px) {
@@ -292,21 +308,31 @@ form label {
 }
 
 form input[type="text"],
-form textarea {
+form textarea,
+input, /* General input style for login/register */
+textarea /* General textarea style for login/register */
+{
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
-    width: calc(100% - 1.6rem);
+    width: calc(100% - 1.6rem); /* Adjust as needed for specific forms */
     transition: border-color 0.3s ease;
 }
 
 form input[type="text"]:focus,
-form textarea:focus {
+form textarea:focus,
+input:focus,
+select:focus
+{
     border-color: var(--cor-destaque);
 }
 
-form button[type="submit"] {
+form button[type="submit"],
+.login-button,
+.register-button,
+.menu-button /* From index.html */
+{
     background-color: var(--cor-secundaria);
     color: var(--texto);
     padding: 1rem 1.5rem;
@@ -318,7 +344,11 @@ form button[type="submit"] {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-form button[type="submit"]:hover {
+form button[type="submit"]:hover,
+.login-button:hover,
+.register-button:hover,
+.menu-button:hover
+{
     background-color: var(--cor-destaque);
     color: white;
 }
@@ -385,4 +415,64 @@ select:focus {
   z-index: 10000;
   background-color: transparent;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific styles for login/register/index containers */
+.login-container,
+.register-container,
+.menu-container {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 420px; /* Adjust max-width as needed */
+  text-align: center;
+  background-color: var(--fundo);
+  color: var(--texto);
+}
+
+.register-container {
+    max-width: 480px; /* Specific max-width for register */
+}
+
+.login-container h2,
+.register-container h2,
+.menu-container h1 {
+    margin-bottom: 1.5rem;
+    color: inherit;
+}
+
+.menu-container h1 {
+    margin-bottom: 2rem;
+}
+
+.menu-button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--cor-secundaria);
+    color: #000;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.footer {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+}
+
+/* Ensure links in high contrast mode are handled */
+body.alto-contraste a {
+  color: var(--contraste-fg); /* Ensure links are visible in high contrast */
 }

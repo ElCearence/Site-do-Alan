@@ -1,5 +1,5 @@
 // URL base do seu backend Flask
-const API_BASE_URL = 'https://site-alan-back.onrender.com/'; // Alterado para o endereço local padrão do Flask
+const API_BASE_URL = 'https://site-alan-back.onrender.com/';
 
 // --- Funções de Navegação ---
 
@@ -111,11 +111,7 @@ async function handleLoginSubmit(e) {
             console.log('Login bem-sucedido. sessionStorage.isLoggedIn definido como true.');
             document.getElementById('login-form').reset();
             setTimeout(() => {
-<<<<<<< HEAD:main-auth.js
                 navigateTo('index.html'); // Redireciona para a nova página principal (index.html)
-=======
-                navigateTo('index.html'); // Redireciona para menu.html
->>>>>>> 2f32662 (mudando titulo):auth.js
             }, 1000);
         } else {
             messageElement.textContent = data.error || 'Credenciais inválidas.';
@@ -135,7 +131,7 @@ async function handleLoginSubmit(e) {
 let contrasteAtivo = false;
 let leituraAtiva = false;
 let fonteAtual = 16; // Inicializado com o valor padrão do CSS
-let librasAtivo = false;
+let librasAtivo = false; // Adicionado para consistência, embora não usado na alternarLibras atual
 
 /**
  * Altera o tamanho da fonte da página.
@@ -232,7 +228,13 @@ function aplicarFiltro(tipo) {
  */
 function alternarLibras() {
   const plugin = document.querySelector('[vw]');
-  plugin.classList.toggle('enabled');
+  // Verifica se o plugin existe antes de tentar manipular classes
+  if (plugin) {
+    plugin.classList.toggle('enabled');
+    console.log('VLibras:', plugin.classList.contains('enabled') ? 'Ativo' : 'Inativo');
+  } else {
+    console.warn('Elemento VLibras (vw) não encontrado no DOM.');
+  }
 }
 
 
@@ -294,8 +296,8 @@ async function loadAccessibilityBar() {
 
 // --- Inicialização e Lógica de Proteção de Rota ---
 
-document.addEventListener('DOMContentLoaded', async () => { // Adicionado 'async' aqui
-    console.log('DOM completamente carregado. Iniciando script auth.js.');
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('DOM completamente carregado. Iniciando script main-auth.js.');
 
     // Carrega a barra de acessibilidade primeiro
     await loadAccessibilityBar(); // Aguarda o carregamento da barra
@@ -311,8 +313,6 @@ document.addEventListener('DOMContentLoaded', async () => { // Adicionado 'async
         } else {
             console.log('Usuário logado. Permanecendo em index.html.');
             // Se o usuário está logado e está em index.html, pode carregar conteúdo protegido
-            // Exemplo: mostrar o ID do usuário logado (se disponível no backend)
-            // fetchUserData(); // Você precisaria de uma função para isso
         }
     }
     // Lógica de proteção para a página de login (login.html)
